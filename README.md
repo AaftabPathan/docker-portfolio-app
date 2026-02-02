@@ -65,7 +65,7 @@ npm start
 
 4. Open your browser:
 ```
-http://localhost:3000
+http://localhost:8081
 ```
 
 ---
@@ -84,12 +84,12 @@ docker build -f Dockerfile.node -t docker-portfolio-node .
 
 ### Run Container
 ```bash
-docker run -d -p 3000:3000 docker-portfolio-app
+docker run -d -p 8081:8081 docker-portfolio-app
 ```
 
 Visit:
 ```
-http://localhost:3000
+http://localhost:8081
 ```
 
 ---
@@ -140,4 +140,4 @@ MIT License
 
 **Aafta﻿b Pathan**  
 GitHub: [https://github.com/AaftabPathan](https://github.com/AaftabPathan)  
-Email: _your email here_ ✉️
+Email: aaftabaayubpathan@gmail.com✉️
