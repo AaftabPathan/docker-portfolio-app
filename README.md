@@ -132,7 +132,7 @@ Add an `.env` file if you want to customize settings (like port or API keys), an
 
 ## 📝 License
 
-MIT License
+MIT License  
 
 ---
 
