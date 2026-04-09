@@ -61,6 +61,24 @@ pipeline {
                }
             }
          }  
-        
+
+
+      post {
+          success {
+              emailext (
+                subject: "SUCCESS: ${env.JOB_NAME}",
+                body: "Build Successful 🎉\nCheck here: ${env.BUILD_URL}",
+                to: "your-email@gmail.com"
+            )
+        }
+
+       failure {
+            emailext (
+                subject: "FAILED: ${env.JOB_NAME}",
+                body: "Build Failed ❌\nCheck here: ${env.BUILD_URL}",
+                to: "your-email@gmail.com"
+            )
+        }    
+             
     }
 }
