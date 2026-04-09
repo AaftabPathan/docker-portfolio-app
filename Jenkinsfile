@@ -1,6 +1,5 @@
 pipeline {
     agent any
-
     stages {
        
         stage('Build Docker Image') {
@@ -10,29 +9,26 @@ pipeline {
             }
         }
 
-        stage('Test the code file present or not') {
+        stage('Test the code file present or not') {  //checks if Index.html Is Exists
             steps {
-               echo 'Running basic tests...'
-
-                // Check if index.html exists
-              sh '''
-              if [ ! -f index.html ];
-                then
-                echo "index.html not found!"
-                exit 1
-           else
-                echo "index.html found ✅"
-             fi
+                echo 'Running basic tests...'  
+                sh '''
+                if [ ! -f index.html ]; then
+                    echo "index.html not found!"
+                    exit 1
+                else
+                    echo "index.html found ✅"
+                fi
                 '''
+            }
         }
-    }
-
+    
         stage('Stop Old Container') {
             steps {
-               sh 'docker stop docker-portfolio-app || true'
+                sh 'docker stop docker-portfolio-app || true'
                 sh 'docker rm docker-portfolio-app || true'
             }
-       }
+        }
         
         stage('Run Container') {
             steps {
@@ -40,45 +36,41 @@ pipeline {
             }
         }
 
-
-       stage('Health Check') {
-             steps {
+        stage('Health Check') {
+            steps {
                 script {
-                 echo 'Checking if application is running...'
-
-                 sh '''
-                 sleep 5
-
-                 response=$(curl -s -o /dev/null -w "%{http_code}" http://localhost:8081)
-
-                 if [ "$response" -eq 200 ]; then
-                      echo "Application is UP ✅"
-                  else
-                      echo "Application is DOWN ❌"
-                      exit 1
-                 fi
-                   '''
-               }
+                    echo 'Checking if application is running...'
+                    sh '''
+                    sleep 5
+                    response=$(curl -s -o /dev/null -w "%{http_code}" http://localhost:8081)
+                    if [ "$response" -eq 200 ]; then
+                        echo "Application is UP ✅"
+                    else
+                        echo "Application is DOWN ❌"
+                        exit 1
+                    fi
+                    '''
+                }
             }
-         }  
+        }
 
+    } 
 
-      post {
-          success {
-              emailext (
+    post {  
+        success {
+            emailext (
                 subject: "SUCCESS: ${env.JOB_NAME}",
                 body: "Build Successful 🎉\nCheck here: ${env.BUILD_URL}",
                 to: "your-email@gmail.com"
             )
         }
-
-       failure {
+        failure {
             emailext (
                 subject: "FAILED: ${env.JOB_NAME}",
                 body: "Build Failed ❌\nCheck here: ${env.BUILD_URL}",
                 to: "your-email@gmail.com"
             )
         }    
-             
     }
-}
+
+}  
