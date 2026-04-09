@@ -5,7 +5,7 @@ pipeline {
        
         stage('Build Docker Image') {
             steps {
-                sh 'docker build -t portfolio-app .'
+                sh 'docker build -t docker-portfolio-app .'
                 echo 'Image Build are Successfull from Docker File'
             }
         }
