@@ -71,19 +71,6 @@ pipeline {
                 to: "aaftabaayubpathan@gmail.com"
             )
         }
-
-
-    always {
-        echo "Running cleanup 🧹"
-
-        sh '''
-        docker stop docker-portfolio-app || true
-        docker rm docker-portfolio-app || true
-        docker image prune -f || true
-        '''
-
-        cleanWs()
-      }
     }
 
 }  
