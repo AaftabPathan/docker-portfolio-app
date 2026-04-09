@@ -40,5 +40,27 @@ pipeline {
             }
         }
 
+
+       stage('Health Check') {
+             steps {
+                script {
+                 echo 'Checking if application is running...'
+
+                 sh '''
+                 sleep 5
+
+                 response=$(curl -s -o /dev/null -w "%{http_code}" http://localhost:8081)
+
+                 if [ "$response" -eq 200 ]; then
+                      echo "Application is UP ✅"
+                  else
+                      echo "Application is DOWN ❌"
+                      exit 1
+                 fi
+                   '''
+               }
+            }
+         }  
+        
     }
 }
