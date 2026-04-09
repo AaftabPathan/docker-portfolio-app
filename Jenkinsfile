@@ -61,7 +61,7 @@ pipeline {
             emailext (
                 subject: "SUCCESS: ${env.JOB_NAME}",
                 body: "Build Successful 🎉\nCheck here: ${env.BUILD_URL}",
-                to: "your-email@gmail.com"
+                to: "aaftabaayubpathan@gmail.com"
             )
         }
         failure {
