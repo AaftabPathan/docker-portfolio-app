@@ -12,7 +12,7 @@ pipeline {
 
         stage('Run Container') {
             steps {
-                sh 'docker run -d -p 8081:8081 docker-portfolio-app'
+                sh 'docker run -d -p 8081:80 docker-portfolio-app'
             }
         }
 
