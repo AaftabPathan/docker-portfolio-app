@@ -3,13 +3,6 @@ pipeline {
 
     stages {
 
-        stage('Clone Code') {
-            steps {
-                git 'https://github.com/AaftabPathan/docker-portfolio-app.git'
-              sh 'The Clonning The Code Form Github'
-              sh 'Code Clone are Successfully Done...!!!'
-            }
-        }
 
         stage('Build Docker Image') {
             steps {
