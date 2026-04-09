@@ -23,12 +23,19 @@ pipeline {
                 echo "index.html found ✅"
              fi
                 '''
+        }
+    }
+
+        stage('Stop Old Container') {
+            steps {
+               sh 'docker stop docker-portfolio-app || true'
+                sh 'docker rm docker-portfolio-app || true'
+            }
        }
-   }
         
         stage('Run Container') {
             steps {
-                sh 'docker run -d -p 8081:80 docker-portfolio-app'
+                sh 'docker run -d -p 8081:80 --name docker-portfolio-app docker-portfolio-app'
             }
         }
 
