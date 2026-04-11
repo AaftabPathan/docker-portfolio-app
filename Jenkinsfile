@@ -22,7 +22,11 @@ pipeline {
                 '''
             }
         }
-    
+        stage('Security Scan') {
+           steps {
+               sh 'docker scout cves docker-portfolio-app:latest || true'
+         }
+      }
         stage('Stop Old Container') {
             steps {
                 sh 'docker stop docker-portfolio-app || true'
