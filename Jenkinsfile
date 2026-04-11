@@ -55,18 +55,21 @@ pipeline {
         }
 
         stage('Push The Image ON DockerHub') {
-            steps {
-                echo "Pushing the images on Docker hub"
-                withCredentials([usernamePassword(
-                    credentialsId:"Docker-portfolio-app-Credentials", 
-                    passwordVariable:"DockerHubPass", 
-                    usernameVariable:"DockerHubUser")]){
-                    sh "echo ${env.DockerHubPass} | docker login -u ${env.DockerHubUser} --password-stdin"
-                    sh "docker image tag docker-portfolio-app:latest ${env.DockerHubUser}/docker-portfolio-app:latest"
-                    sh "docker push ${env.DockerHubUser}/docker-portfolio-app:latest"
-                }
-            }
+        steps {
+        echo "Pushing the images on Docker hub"
+        withCredentials([usernamePassword(
+            credentialsId: "Docker-portfolio-app-Credentials", 
+            passwordVariable: "DockerHubPass", 
+            usernameVariable: "DockerHubUser")]) {
+            
+            sh '''
+                echo $DockerHubPass | docker login -u $DockerHubUser --password-stdin
+                docker image tag docker-portfolio-app:latest $DockerHubUser/docker-portfolio-app:latest
+                docker push $DockerHubUser/docker-portfolio-app:latest
+            '''
         }
+    }
+}
 
     }  
 
