@@ -9,7 +9,7 @@ pipeline {
             }
         }
 
-        stage('Test the code file present or not') {  //checks if Index.html Is Exists
+        stage('Test the code file present or not') {
             steps {
                 echo 'Running basic tests...'  
                 sh '''
@@ -54,22 +54,22 @@ pipeline {
             }
         }
 
-    } 
-
-
-     stage('Push The Image ON DockerHub') {
+        stage('Push The Image ON DockerHub') {
             steps {
                 echo "Pushing the images on Docker hub"
-                withCredentials([usernamePassword(credentialsId:"Docker-portfolio-app-Credentials", 
-                         passwordVariable:"DockerHubPass", 
-                         usernameVariable:"DockerHubUser")]){
-                sh "docker login -u ${env.DockerHubUser} -p ${env.DockerHubPass}"
-                sh "docker image tag docker-portfolio-app:latest ${env.DockerHubUser}/docker-portfolio-app:latest"
-                sh "docker push ${env.DockerHubUser}/docker-portfolio-app:latest"
+                withCredentials([usernamePassword(
+                    credentialsId:"Docker-portfolio-app-Credentials", 
+                    passwordVariable:"DockerHubPass", 
+                    usernameVariable:"DockerHubUser")]){
+                    sh "echo ${env.DockerHubPass} | docker login -u ${env.DockerHubUser} --password-stdin"
+                    sh "docker image tag docker-portfolio-app:latest ${env.DockerHubUser}/docker-portfolio-app:latest"
+                    sh "docker push ${env.DockerHubUser}/docker-portfolio-app:latest"
+                }
             }
-          }
         }
-    }
+
+    }  
+
     post {  
         success {
             emailext (
@@ -86,5 +86,4 @@ pipeline {
             )
         }
     }
-
-}  
+}
