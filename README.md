@@ -1,200 +1,133 @@
-# 🚀 Docker Portfolio App
+# 🚀 Docker Portfolio App with CI/CD (Jenkins)
 
-A simple yet powerful **containerized portfolio application** built using **Node.js and Docker**, demonstrating modern DevOps practices such as containerization and automated CI/CD deployment using Jenkins.
+A production-ready **portfolio web application** containerized using Docker and automated with a complete **CI/CD pipeline using Jenkins**.
 
----
-
-## 📌 Overview
-
-This project showcases:
-
-* A **personal portfolio web application**
-* Containerized using **Docker**
-* Supports **Docker Compose**
-* Automated deployment using **Jenkins CI/CD pipeline**
-* Includes **health checks and basic testing**
-
-This project simulates a **real-world production deployment workflow** used by DevOps engineers.
+This project demonstrates real-world DevOps practices including **containerization, automated testing, security scanning, deployment, and DockerHub integration**.
 
 ---
 
-## 🧱 Architecture
+## 📌 Project Overview
+
+This project is a static portfolio application that is:
+
+* 🐳 Containerized using Docker
+* ⚙️ Automated using Jenkins CI/CD pipeline
+* 🔐 Secured with vulnerability scanning
+* 🚀 Automatically deployed via Jenkins
+* ☁️ DockerHub ready for cloud deployment
+
+---
+
+## 🏗️ Architecture
 
 ```
-Developer → GitHub → Jenkins → Docker Build → Container Run → Health Check → Deployment
-```
-
----
-
-## 🛠️ Tech Stack
-
-* **Node.js** – Backend server
-* **HTML/CSS/JS** – Frontend
-* **Docker** – Containerization
-* **Docker Compose** – Multi-container orchestration
-* **Jenkins** – CI/CD automation
-
----
-
-## 📁 Project Structure
-
-```
-docker-portfolio-app/
-├── app.js                # Node.js server
-├── index.html            # Portfolio UI
-├── package.json          # Dependencies
-├── package-lock.json
-├── Dockerfile            # Docker image definition
-├── Dockerfile.node       # Alternative Docker setup
-├── docker-compose.yml    # Multi-container setup
-├── Jenkinsfile           # CI/CD pipeline (logic explained below)
-└── README.md
+Developer → GitHub → Jenkins → Docker Build → Test → Security Scan → Deploy → DockerHub Push
 ```
 
 ---
 
-## ⚙️ How It Works
+## ⚙️ Tech Stack
 
-### 🧾 1. Application Flow
-
-* Node.js server serves the **portfolio UI**
-* Application runs inside a **Docker container**
-* Exposed on a specific port (e.g., 8081)
+* **Frontend:** HTML, CSS
+* **CI/CD:** Jenkins
+* **Containerization:** Docker
+* **Security:** Docker Scout (CVE Scan)
+* **Version Control:** Git & GitHub
 
 ---
 
-## 🐳 Docker Setup
+## 🔄 CI/CD Pipeline Flow
 
-### 🔨 Build Docker Image
+The Jenkins pipeline performs the following steps:
+
+1. 📦 **Build Docker Image**
+2. 🧪 **Basic Testing** (checks if `index.html` exists)
+3. 🔐 **Security Scan** (Docker Scout CVE scan)
+4. 🛑 **Stop Previous Container**
+5. ▶️ **Run New Container**
+6. ❤️ **Health Check** (HTTP response validation)
+7. ☁️ **Push Image to DockerHub**
+8. 📧 **Email Notification (Success/Failure)**
+
+---
+
+## 🐳 Docker Commands (Manual)
 
 ```bash
-docker build -t docker-portfolio-app .
+# Build Image
+docker build -t docker-portfolio-app:latest .
+
+# Run Container
+docker run -d -p 8081:80 --name docker-portfolio-app docker-portfolio-app:latest
 ```
-
-### ▶️ Run Container
-
-```bash
-docker run -d -p 8081:8081 docker-portfolio-app
-```
-
-👉 Open in browser:
-http://localhost:8081
 
 ---
 
-## 🐙 Docker Compose
+## 🔐 Jenkins Credentials Setup
 
-This project also supports **Docker Compose** for easier setup:
+To securely push images to DockerHub:
 
-```bash
-docker compose up -d
-```
-
-This command:
-
-* Builds the image
-* Starts the container
-* Maps required ports
+* Add **DockerHub credentials** in Jenkins
+* Use `usernamePassword` binding
+* Secure login using `--password-stdin`
 
 ---
 
-## 🔄 CI/CD Pipeline (Jenkins)
+## 📦 DockerHub Image
 
-The project includes a **Jenkins-based CI/CD pipeline** that automates the entire lifecycle:
-
-### 🧩 Pipeline Stages
-
-#### 1. Build Stage
-
-* Builds a Docker image from the Dockerfile
-
-#### 2. Test Stage
-
-* Verifies essential project files (like `index.html`)
-* Ensures application integrity before deployment
-
-#### 3. Cleanup Stage
-
-* Stops and removes any previously running container
-
-#### 4. Deployment Stage
-
-* Runs a new Docker container with updated code
-
-#### 5. Health Check Stage
-
-* Sends an HTTP request to verify the application is running
-* Ensures the application responds successfully
-
-#### 6. Notification Stage
-
-* Sends email alerts for:
-
-  * ✅ Successful builds
-  * ❌ Failed builds
+```
+dockerhub-username/docker-portfolio-app:latest
+```
 
 ---
 
 ## 📊 Features
 
-✔ Fully containerized application
-✔ CI/CD automation using Jenkins
-✔ Health check validation
-✔ Automated deployment workflow
-✔ Docker & Docker Compose support
-✔ Production-like DevOps pipeline
+* ✅ Fully automated CI/CD pipeline
+* ✅ Dockerized application
+* ✅ Security vulnerability scanning
+* ✅ Zero-downtime deployment (container replacement)
+* ✅ Health monitoring using HTTP checks
+* ✅ Email alerts for build status
 
 ---
 
-## 🌐 Deployment
+## 📸 Screenshots (Optional)
 
-This application can be deployed on:
-
-* AWS EC2 / ECS
-* Azure Container Instances
-* Google Cloud Run
-* Any Linux server with Docker installed
-
----
-
-## 🔐 Best Practices Followed
-
-* Clean and modular project structure
-* Containerization using Docker
-* Automated pipeline for deployment
-* Health checks to ensure reliability
-* Error handling in deployment steps
+*Add Jenkins pipeline screenshots here*
 
 ---
 
 ## 🚀 Future Enhancements
 
-* Docker image push to registry (Docker Hub / ECR)
-* Kubernetes deployment
-* Nginx reverse proxy integration
-* SSL/HTTPS setup
-* Monitoring with Grafana & Prometheus
-* Blue-Green deployment strategy
+* 🌐 Deploy on AWS EC2
+* 🔁 Add Nginx reverse proxy
+* 📈 Integrate Prometheus & Grafana monitoring
+* 📜 Centralized logging with Loki
+* ☸️ Kubernetes deployment
 
 ---
 
-## 👨‍💻 Author
+## 🧠 What I Learned
 
-**Aaftab Pathan**
-DevOps Enthusiast 🚀
-
-* GitHub: https://github.com/AaftabPathan
-* Email: [aaftabaayubpathan@gmail.com](mailto:aaftabaayubpathan@gmail.com)
+* Building end-to-end CI/CD pipelines
+* Docker container lifecycle management
+* Secure credential handling in Jenkins
+* Automated deployment strategies
+* Real-world DevOps workflow
 
 ---
 
-## ⭐ Conclusion
+## 🤝 Contributing
 
-This project demonstrates a **real-world DevOps workflow** by combining:
+Contributions are welcome! Feel free to fork and improve the project.
 
-* Application development
-* Containerization
-* Automated CI/CD pipeline
-* Deployment and monitoring readiness
+---
 
-It reflects industry-level practices and is ideal for showcasing in interviews and resumes.
+## 📬 Contact
+
+If you like this project, feel free to connect with me on LinkedIn or GitHub.
+
+---
+
+⭐ Don’t forget to star this repository if you found it useful!
