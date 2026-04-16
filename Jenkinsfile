@@ -1,17 +1,18 @@
 pipeline {
     agent any
+
     stages {
-       
+
         stage('Build Docker Image') {
             steps {
                 sh 'docker build -t docker-portfolio-app .'
-                echo 'Image Build are Successfull from Docker File'
+                echo 'Image Build Successful'
             }
         }
 
-        stage('Test the code file present or not') {
+        stage('Test File Exists') {
             steps {
-                echo 'Running basic tests...'  
+                echo 'Running basic tests...'
                 sh '''
                 if [ ! -f index.html ]; then
                     echo "index.html not found!"
@@ -22,18 +23,33 @@ pipeline {
                 '''
             }
         }
+
         stage('Security Scan') {
-           steps {
-               sh 'docker scout cves docker-portfolio-app:latest || true'
-         }
-      }
+            steps {
+                sh 'docker scout cves docker-portfolio-app:latest || true'
+            }
+        }
+
+        stage('NPM Audit') {
+            steps {
+                sh 'npm install'
+                sh 'npm audit || true'
+            }
+        }
+
+        stage('Lint') {
+            steps {
+                sh 'npm install eslint || true'
+            }
+        }
+
         stage('Stop Old Container') {
             steps {
                 sh 'docker stop docker-portfolio-app || true'
                 sh 'docker rm docker-portfolio-app || true'
             }
         }
-        
+
         stage('Run Container') {
             steps {
                 sh 'docker run -d -p 8081:80 --name docker-portfolio-app docker-portfolio-app'
@@ -42,53 +58,38 @@ pipeline {
 
         stage('Health Check') {
             steps {
-                script {
-                    echo 'Checking if application is running...'
+                sh '''
+                sleep 5
+                response=$(curl -s -o /dev/null -w "%{http_code}" http://localhost:8081)
+                if [ "$response" -eq 200 ]; then
+                    echo "Application is UP ✅"
+                else
+                    echo "Application is DOWN ❌"
+                    exit 1
+                fi
+                '''
+            }
+        }
+
+        stage('Push to DockerHub') {
+            steps {
+                echo "Pushing image to DockerHub"
+                withCredentials([usernamePassword(
+                    credentialsId: "Docker-portfolio-app-Credentials",
+                    usernameVariable: "DockerHubUser",
+                    passwordVariable: "DockerHubPass"
+                )]) {
                     sh '''
-                    sleep 5
-                    response=$(curl -s -o /dev/null -w "%{http_code}" http://localhost:8081)
-                    if [ "$response" -eq 200 ]; then
-                        echo "Application is UP ✅"
-                    else
-                        echo "Application is DOWN ❌"
-                        exit 1
-                    fi
+                    echo $DockerHubPass | docker login -u $DockerHubUser --password-stdin
+                    docker tag docker-portfolio-app:latest $DockerHubUser/docker-portfolio-app:latest
+                    docker push $DockerHubUser/docker-portfolio-app:latest
                     '''
                 }
             }
         }
+    }
 
-        stage('Push The Image ON DockerHub') {
-        steps {
-        echo "Pushing the images on Docker hub"
-        withCredentials([usernamePassword(
-            credentialsId: "Docker-portfolio-app-Credentials", 
-            passwordVariable: "DockerHubPass", 
-            usernameVariable: "DockerHubUser")]) {
-            
-            sh '''
-                echo $DockerHubPass | docker login -u $DockerHubUser --password-stdin
-                docker image tag docker-portfolio-app:latest $DockerHubUser/docker-portfolio-app:latest
-                docker push $DockerHubUser/docker-portfolio-app:latest
-            '''
-        }
-    }
-}
-        stage('NPM Audit') {
-        steps {
-           sh 'npm install'
-           sh 'npm audit || true'
-       }
-    }
-}  
-
-       stage('Lint') {
-       steps {
-         sh 'npm install eslint || true'
-    }
-}
-   
-    post {  
+    post {
         success {
             emailext (
                 subject: "SUCCESS: ${env.JOB_NAME}",
