@@ -2,6 +2,13 @@
 <html>
 <head>
     <title>My Docker Project</title>
+<script>
+     fetch('/api')
+     .then(res => res.json())
+     .then(data => {
+      document.body.innerHTML += `<p>${data.message}</p>`;
+      });
+</script>
 </head>
 <body>
     <h1>Welcome to My Dockerized Web App!</h1>
