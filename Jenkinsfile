@@ -1,15 +1,12 @@
 pipeline {
     agent any
-
     stages {
-
         stage('Build Docker Image') {
             steps {
                 sh 'docker build -t docker-portfolio-app .'
                 echo 'Image Build Successful'
             }
         }
-
         stage('Test File Exists') {
             steps {
                 echo 'Running basic tests...'
@@ -23,40 +20,34 @@ pipeline {
                 '''
             }
         }
-
         stage('Security Scan') {
             steps {
                 sh 'trivy image docker-portfolio-app:latest || true'
             }
         }
-
         stage('NPM Audit') {
             steps {
                 sh 'npm install'
                 sh 'npm audit fix || true'
             }
         }
-
         stage('Lint') {
             steps {
                 sh 'npm install eslint'
                 sh 'npx eslint .'
             }
         }
-
         stage('Stop Old Container') {
             steps {
                 sh 'docker stop docker-portfolio-app || true'
                 sh 'docker rm docker-portfolio-app || true'
             }
         }
-
         stage('Run Container') {
             steps {
                 sh 'docker run -d -p 8081:80 --name docker-portfolio-app docker-portfolio-app'
             }
         }
-
         stage('Health Check') {
             steps {
                 sh '''
@@ -71,7 +62,6 @@ pipeline {
                 '''
             }
         }
-
         stage('Push to DockerHub') {
             steps {
                 echo "Pushing image to DockerHub"
@@ -88,16 +78,16 @@ pipeline {
                 }
             }
         }
-    }
-           stage('Deploy to Kubernetes') {
-             steps {
-                 sh '''
-                 kubectl apply -f k8s/deployment.yaml
-                 kubectl apply -f k8s/service.yaml
-                 '''
-              }
-           }
-    
+        stage('Deploy to Kubernetes') {
+            steps {
+                sh '''
+                kubectl apply -f k8s/deployment.yaml
+                kubectl apply -f k8s/service.yaml
+                '''
+            }
+        }
+    }   
+
     post {
         success {
             emailext (
