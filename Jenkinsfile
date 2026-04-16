@@ -74,9 +74,20 @@ pipeline {
         }
     }
 }
+        stage('NPM Audit') {
+        steps {
+           sh 'npm install'
+           sh 'npm audit || true'
+       }
+    }
+}  
 
-    }  
-
+       stage('Lint') {
+       steps {
+         sh 'npm install eslint || true'
+    }
+}
+   
     post {  
         success {
             emailext (
