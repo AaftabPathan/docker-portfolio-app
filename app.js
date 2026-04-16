@@ -1,12 +1,16 @@
 const express = require('express');
 const app = express();
-const port = 3000;
 
 app.get('/', (req, res) => {
-    res.send('<h1>Welcome to My Dockerized Web App!</h1>');
+    res.send('Welcome to DevOps App 🚀');
 });
 
-app.listen(port, () => {
-    console.log(`App running on port ${port}`);
+app.get('/api', (req, res) => {
+    res.json({ message: "Hello from backend" });
 });
 
+app.get('/health', (req, res) => {
+    res.json({ status: "UP" });
+});
+
+app.listen(3000, () => console.log("Running on port 3000"));
