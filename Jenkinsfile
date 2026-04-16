@@ -26,7 +26,7 @@ pipeline {
 
         stage('Security Scan') {
             steps {
-                sh 'docker scout cves docker-portfolio-app:latest || true'
+                sh 'trivy image docker-portfolio-app:latest || true'
             }
         }
 
