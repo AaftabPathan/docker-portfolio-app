@@ -39,7 +39,8 @@ pipeline {
 
         stage('Lint') {
             steps {
-                sh 'npm install eslint || true'
+                sh 'npm install eslint'
+                sh 'npx eslint . || true'
             }
         }
 
