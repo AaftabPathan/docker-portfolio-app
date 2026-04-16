@@ -33,7 +33,7 @@ pipeline {
         stage('NPM Audit') {
             steps {
                 sh 'npm install'
-                sh 'npm audit || true'
+                sh 'npm audit fix || true'
             }
         }
 
