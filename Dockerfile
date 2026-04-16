@@ -1,12 +1,14 @@
 # Use Nginx as base image
-FROM nginx:alpine
+FROM nginx:stable-alpine
+
+# update & upgrade packages
+RUN apk update && apk upgrade --no-cache
+
+# remove cache to reduce vulnerabilities
+RUN rm -rf /var/cache/apk/*
 
 # Copy website files
 COPY index.html /usr/share/nginx/html/index.html
 
-# Expose port 80
-EXPOSE 80
 
-# Start Nginx
-CMD ["nginx", "-g", "daemon off;"]
 
