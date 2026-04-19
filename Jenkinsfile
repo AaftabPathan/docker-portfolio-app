@@ -11,7 +11,7 @@ pipeline {
             steps {
                 echo 'Running basic tests...'
                 sh '''
-                if [ ! -f index.html ]; then
+                if [ ! -f app/index.html ]; then
                     echo "index.html not found!"
                     exit 1
                 else
