@@ -8,7 +8,6 @@ RUN apk update && apk upgrade --no-cache
 RUN rm -rf /var/cache/apk/*
 
 # Copy website files
-COPY index.html /usr/share/nginx/html/index.html
-
+COPY app/index.html /usr/share/nginx/html/index.html
 
 
