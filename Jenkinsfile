@@ -27,9 +27,10 @@ pipeline {
         }
         stage('NPM Audit') {
             steps {
-                sh 'cd app'
+                dir('app') {
                 sh 'npm install'
                 sh 'npm audit'
+                }    
             }
         }
         stage('Lint') {
