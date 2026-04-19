@@ -3,56 +3,78 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DevOps Portfolio</title>
-
-    <!-- Bootstrap -->
+    <title>Aaftab | DevOps Portfolio</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body { background-color: #0d1117; color: #c9d1d9; }
+        .navbar { background-color: #161b22 !important; }
+        .hero { background: linear-gradient(135deg, #161b22, #21262d); padding: 80px 0; }
+        .card { background-color: #161b22; border: 1px solid #30363d; color: #c9d1d9; }
+        .badge-skill { background-color: #238636; color: white; padding: 6px 12px; border-radius: 20px; margin: 4px; display: inline-block; }
+        footer { background-color: #161b22; border-top: 1px solid #30363d; }
+    </style>
 </head>
-
 <body>
 
 <!-- Navbar -->
-<nav class="navbar navbar-dark bg-dark">
+<nav class="navbar navbar-dark">
     <div class="container">
-        <span class="navbar-brand">🚀 Aaftab DevOps Portfolio</span>
+        <span class="navbar-brand fw-bold">🚀 Aaftab DevOps Portfolio</span>
+        <span class="badge bg-success">Live ✅</span>
     </div>
 </nav>
 
-<!-- Hero Section -->
-<div class="container text-center mt-5">
-    <h1>Hello, I'm Aaftab 👋</h1>
-    <p class="lead">DevOps Engineer | Docker | Jenkins | Kubernetes</p>
+<!-- Hero -->
+<div class="hero text-center">
+    <div class="container">
+        <h1 class="display-4 fw-bold">Hello, I'm Aaftab 👋</h1>
+        <p class="lead text-secondary">DevOps Engineer | Docker | Jenkins | Kubernetes</p>
+    </div>
 </div>
 
 <!-- Skills -->
 <div class="container mt-5">
-    <h2>🛠 Skills</h2>
-    <ul>
-        <li>Docker</li>
-        <li>Jenkins</li>
-        <li>Kubernetes</li>
-        <li>Linux</li>
-    </ul>
+    <h2 class="mb-4">🛠 Skills</h2>
+    <div>
+        <span class="badge-skill">🐳 Docker</span>
+        <span class="badge-skill">⚙️ Jenkins</span>
+        <span class="badge-skill">☸️ Kubernetes</span>
+        <span class="badge-skill">🐧 Linux</span>
+        <span class="badge-skill">🔒 Trivy</span>
+        <span class="badge-skill">📦 Nginx</span>
+    </div>
 </div>
 
-<!-- Projects -->
+<!-- Project -->
 <div class="container mt-5">
-    <h2>🚀 Project</h2>
-    <p>Docker + Jenkins + Kubernetes CI/CD Pipeline</p>
+    <h2 class="mb-4">🚀 Projects</h2>
+    <div class="card p-4">
+        <h5>Docker + Jenkins + Kubernetes CI/CD Pipeline</h5>
+        <p class="text-secondary mb-2">Full CI/CD pipeline with automated build, test, security scan, and deployment.</p>
+        <div>
+            <span class="badge bg-primary me-1">Docker</span>
+            <span class="badge bg-warning text-dark me-1">Jenkins</span>
+            <span class="badge bg-info text-dark me-1">Kubernetes</span>
+            <span class="badge bg-danger me-1">Trivy</span>
+        </div>
+    </div>
 </div>
 
-<!-- DevOps Info -->
+<!-- Deployment Info -->
 <div class="container mt-5">
-    <h2>⚙️ Deployment Info</h2>
-    <p><b>Pipeline:</b> GitHub → Jenkins → Docker → Kubernetes</p>
-    <p><b>Version:</b> v1</p>
-    <p><b>Status:</b> Running ✅</p>
+    <h2 class="mb-4">⚙️ Deployment Info</h2>
+    <div class="card p-4">
+        <p>🔁 <b>Pipeline:</b> GitHub → Jenkins → Docker → Kubernetes</p>
+        <p>🏷️ <b>Version:</b> v1.0.0</p>
+        <p>✅ <b>Status:</b> Running</p>
+        <p>🔒 <b>Security:</b> Trivy Scan Passed</p>
+    </div>
 </div>
 
 <!-- Footer -->
-<div class="bg-dark text-white text-center p-3 mt-5">
-    <p>Made with ❤️ by Aaftab</p>
-</div>
+<footer class="text-center p-4 mt-5">
+    <p class="mb-0">Made with ❤️ by Aaftab | DevOps Engineer</p>
+</footer>
 
 </body>
 </html>
