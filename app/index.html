@@ -3,78 +3,722 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Aaftab | DevOps Portfolio</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <title>Aaftab Pathan | DevOps Engineer</title>
+    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
     <style>
-        body { background-color: #0d1117; color: #c9d1d9; }
-        .navbar { background-color: #161b22 !important; }
-        .hero { background: linear-gradient(135deg, #161b22, #21262d); padding: 80px 0; }
-        .card { background-color: #161b22; border: 1px solid #30363d; color: #c9d1d9; }
-        .badge-skill { background-color: #238636; color: white; padding: 6px 12px; border-radius: 20px; margin: 4px; display: inline-block; }
-        footer { background-color: #161b22; border-top: 1px solid #30363d; }
+        :root {
+            --bg: #050810;
+            --surface: #0c1220;
+            --surface2: #111827;
+            --accent1: #6ee7f7;
+            --accent2: #a78bfa;
+            --accent3: #f472b6;
+            --text: #e2e8f0;
+            --muted: #64748b;
+            --border: rgba(110, 231, 247, 0.12);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        html { scroll-behavior: smooth; }
+
+        body {
+            background: var(--bg);
+            color: var(--text);
+            font-family: 'DM Sans', sans-serif;
+            overflow-x: hidden;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            inset: 0;
+            background:
+                radial-gradient(ellipse 80% 60% at 20% 10%, rgba(110, 231, 247, 0.07) 0%, transparent 60%),
+                radial-gradient(ellipse 60% 50% at 80% 80%, rgba(167, 139, 250, 0.07) 0%, transparent 60%),
+                radial-gradient(ellipse 50% 40% at 50% 50%, rgba(244, 114, 182, 0.04) 0%, transparent 60%);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        body::after {
+            content: '';
+            position: fixed;
+            inset: 0;
+            background-image:
+                linear-gradient(rgba(110, 231, 247, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(110, 231, 247, 0.03) 1px, transparent 1px);
+            background-size: 60px 60px;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        nav {
+            position: fixed;
+            top: 0; left: 0; right: 0;
+            z-index: 100;
+            padding: 20px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            backdrop-filter: blur(20px);
+            background: rgba(5, 8, 16, 0.7);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .nav-brand {
+            font-family: 'Syne', sans-serif;
+            font-weight: 800;
+            font-size: 1.2rem;
+            background: linear-gradient(90deg, var(--accent1), var(--accent2));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .nav-links { display: flex; gap: 32px; list-style: none; }
+        .nav-links a {
+            color: var(--muted);
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: color 0.3s;
+            letter-spacing: 0.05em;
+        }
+        .nav-links a:hover { color: var(--accent1); }
+
+        .nav-status {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.8rem;
+            color: #4ade80;
+            background: rgba(74, 222, 128, 0.1);
+            border: 1px solid rgba(74, 222, 128, 0.2);
+            padding: 6px 14px;
+            border-radius: 20px;
+        }
+
+        .pulse {
+            width: 7px; height: 7px;
+            background: #4ade80;
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.5; transform: scale(1.4); }
+        }
+
+        .hero {
+            position: relative;
+            z-index: 1;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 120px 40px 80px;
+        }
+
+        .hero-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(110, 231, 247, 0.08);
+            border: 1px solid rgba(110, 231, 247, 0.2);
+            color: var(--accent1);
+            padding: 8px 20px;
+            border-radius: 30px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            margin-bottom: 32px;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            opacity: 0;
+            animation: fadeUp 0.8s 0.2s forwards;
+        }
+
+        .hero h1 {
+            font-family: 'Syne', sans-serif;
+            font-size: clamp(3rem, 8vw, 7rem);
+            font-weight: 800;
+            line-height: 1;
+            letter-spacing: -0.03em;
+            margin-bottom: 24px;
+            opacity: 0;
+            animation: fadeUp 0.8s 0.4s forwards;
+        }
+
+        .hero h1 .gradient-text {
+            background: linear-gradient(135deg, var(--accent1) 0%, var(--accent2) 50%, var(--accent3) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero-sub {
+            font-size: clamp(1rem, 2vw, 1.25rem);
+            color: var(--muted);
+            max-width: 500px;
+            line-height: 1.7;
+            margin-bottom: 48px;
+            font-weight: 300;
+            opacity: 0;
+            animation: fadeUp 0.8s 0.6s forwards;
+        }
+
+        .hero-cta {
+            display: flex;
+            gap: 16px;
+            flex-wrap: wrap;
+            justify-content: center;
+            opacity: 0;
+            animation: fadeUp 0.8s 0.8s forwards;
+        }
+
+        .btn-primary {
+            padding: 14px 32px;
+            background: linear-gradient(135deg, var(--accent1), var(--accent2));
+            color: #050810;
+            font-weight: 700;
+            font-size: 0.95rem;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            text-decoration: none;
+            transition: transform 0.2s, box-shadow 0.2s;
+            font-family: 'DM Sans', sans-serif;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 30px rgba(110, 231, 247, 0.25);
+        }
+
+        .btn-outline {
+            padding: 14px 32px;
+            background: transparent;
+            color: var(--text);
+            font-weight: 500;
+            font-size: 0.95rem;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            cursor: pointer;
+            text-decoration: none;
+            transition: border-color 0.2s, background 0.2s;
+            font-family: 'DM Sans', sans-serif;
+        }
+
+        .btn-outline:hover {
+            border-color: var(--accent1);
+            background: rgba(110, 231, 247, 0.05);
+        }
+
+        .scroll-hint {
+            position: absolute;
+            bottom: 40px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+            color: var(--muted);
+            font-size: 0.75rem;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            opacity: 0;
+            animation: fadeUp 1s 1.2s forwards;
+        }
+
+        .scroll-line {
+            width: 1px;
+            height: 40px;
+            background: linear-gradient(to bottom, var(--accent1), transparent);
+            animation: scrollLine 2s ease-in-out infinite;
+        }
+
+        @keyframes scrollLine {
+            0% { transform: scaleY(0); transform-origin: top; }
+            50% { transform: scaleY(1); transform-origin: top; }
+            51% { transform: scaleY(1); transform-origin: bottom; }
+            100% { transform: scaleY(0); transform-origin: bottom; }
+        }
+
+        section {
+            position: relative;
+            z-index: 1;
+            padding: 100px 40px;
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        .section-label {
+            font-size: 0.75rem;
+            font-weight: 600;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: var(--accent1);
+            margin-bottom: 16px;
+        }
+
+        .section-title {
+            font-family: 'Syne', sans-serif;
+            font-size: clamp(2rem, 4vw, 3rem);
+            font-weight: 700;
+            margin-bottom: 60px;
+            color: var(--text);
+        }
+
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+            gap: 16px;
+        }
+
+        .skill-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 24px 20px;
+            text-align: center;
+            transition: transform 0.3s, border-color 0.3s, box-shadow 0.3s;
+            cursor: default;
+            opacity: 0;
+            animation: fadeUp 0.6s forwards;
+        }
+
+        .skill-card:hover {
+            transform: translateY(-6px);
+            border-color: var(--accent1);
+            box-shadow: 0 20px 40px rgba(110, 231, 247, 0.1);
+        }
+
+        .skill-icon { font-size: 2rem; margin-bottom: 10px; }
+        .skill-name { font-weight: 600; font-size: 0.95rem; color: var(--text); margin-bottom: 4px; }
+        .skill-level { font-size: 0.75rem; color: var(--muted); }
+
+        .project-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 40px;
+            position: relative;
+            overflow: hidden;
+            transition: border-color 0.3s, box-shadow 0.3s;
+        }
+
+        .project-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            height: 2px;
+            background: linear-gradient(90deg, var(--accent1), var(--accent2), var(--accent3));
+        }
+
+        .project-card:hover {
+            border-color: rgba(110, 231, 247, 0.3);
+            box-shadow: 0 30px 60px rgba(110, 231, 247, 0.08);
+        }
+
+        .project-title { font-family: 'Syne', sans-serif; font-size: 1.5rem; font-weight: 700; margin-bottom: 12px; }
+        .project-desc { color: var(--muted); line-height: 1.7; margin-bottom: 24px; font-size: 0.95rem; }
+
+        .pipeline-flow { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; margin-bottom: 28px; }
+
+        .pipe-step {
+            background: rgba(110, 231, 247, 0.08);
+            border: 1px solid rgba(110, 231, 247, 0.15);
+            color: var(--accent1);
+            padding: 6px 14px;
+            border-radius: 6px;
+            font-size: 0.82rem;
+            font-weight: 600;
+            letter-spacing: 0.05em;
+        }
+
+        .pipe-arrow { color: var(--muted); font-size: 1rem; }
+        .project-tags { display: flex; gap: 8px; flex-wrap: wrap; }
+
+        .tag { padding: 5px 12px; border-radius: 20px; font-size: 0.78rem; font-weight: 600; }
+        .tag-blue { background: rgba(96, 165, 250, 0.1); color: #60a5fa; border: 1px solid rgba(96, 165, 250, 0.2); }
+        .tag-purple { background: rgba(167, 139, 250, 0.1); color: var(--accent2); border: 1px solid rgba(167, 139, 250, 0.2); }
+        .tag-pink { background: rgba(244, 114, 182, 0.1); color: var(--accent3); border: 1px solid rgba(244, 114, 182, 0.2); }
+        .tag-cyan { background: rgba(110, 231, 247, 0.1); color: var(--accent1); border: 1px solid rgba(110, 231, 247, 0.2); }
+        .tag-green { background: rgba(74, 222, 128, 0.1); color: #4ade80; border: 1px solid rgba(74, 222, 128, 0.2); }
+
+        .info-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px; }
+
+        .info-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 28px;
+            transition: border-color 0.3s;
+        }
+
+        .info-card:hover { border-color: rgba(167, 139, 250, 0.3); }
+        .info-icon { font-size: 1.5rem; margin-bottom: 12px; }
+        .info-label { font-size: 0.75rem; color: var(--muted); letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 6px; }
+        .info-value { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 1.1rem; }
+
+        .contact-wrapper { display: grid; grid-template-columns: 1fr 1.2fr; gap: 60px; align-items: start; }
+
+        .contact-intro h3 { font-family: 'Syne', sans-serif; font-size: 1.8rem; font-weight: 700; margin-bottom: 16px; }
+        .contact-intro p { color: var(--muted); line-height: 1.7; margin-bottom: 32px; }
+
+        .social-links { display: flex; flex-direction: column; gap: 12px; }
+        .social-link {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 14px 20px;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            text-decoration: none;
+            color: var(--text);
+            font-weight: 500;
+            font-size: 0.9rem;
+            transition: border-color 0.3s, background 0.3s, transform 0.2s;
+        }
+
+        .social-link:hover {
+            border-color: var(--accent1);
+            background: rgba(110, 231, 247, 0.05);
+            transform: translateX(4px);
+        }
+
+        .social-link-icon { font-size: 1.2rem; }
+        .social-link-text { flex: 1; }
+        .social-link-arrow { color: var(--muted); transition: color 0.3s; }
+        .social-link:hover .social-link-arrow { color: var(--accent1); }
+
+        .contact-form {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 36px;
+        }
+
+        .form-group { margin-bottom: 20px; }
+
+        .form-label {
+            display: block;
+            font-size: 0.82rem;
+            font-weight: 600;
+            color: var(--muted);
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            margin-bottom: 8px;
+        }
+
+        .form-input, .form-textarea {
+            width: 100%;
+            background: var(--bg);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 12px 16px;
+            color: var(--text);
+            font-family: 'DM Sans', sans-serif;
+            font-size: 0.95rem;
+            outline: none;
+            transition: border-color 0.3s, box-shadow 0.3s;
+        }
+
+        .form-input:focus, .form-textarea:focus {
+            border-color: var(--accent1);
+            box-shadow: 0 0 0 3px rgba(110, 231, 247, 0.1);
+        }
+
+        .form-textarea { resize: vertical; min-height: 120px; }
+
+        .form-submit {
+            width: 100%;
+            padding: 14px;
+            background: linear-gradient(135deg, var(--accent1), var(--accent2));
+            color: #050810;
+            font-weight: 700;
+            font-size: 1rem;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-family: 'DM Sans', sans-serif;
+            transition: opacity 0.2s, transform 0.2s;
+        }
+
+        .form-submit:hover { opacity: 0.9; transform: translateY(-1px); }
+
+        .form-success {
+            display: none;
+            text-align: center;
+            padding: 20px;
+            color: #4ade80;
+            font-weight: 600;
+        }
+
+        footer {
+            position: relative;
+            z-index: 1;
+            border-top: 1px solid var(--border);
+            padding: 40px;
+            text-align: center;
+            color: var(--muted);
+            font-size: 0.875rem;
+        }
+
+        footer span {
+            background: linear-gradient(90deg, var(--accent1), var(--accent2));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-weight: 600;
+        }
+
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(24px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.7s ease, transform 0.7s ease;
+        }
+
+        .reveal.visible { opacity: 1; transform: translateY(0); }
+
+        .divider {
+            width: 100%;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--border), transparent);
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        @media (max-width: 768px) {
+            nav { padding: 16px 20px; }
+            .nav-links { display: none; }
+            section { padding: 60px 20px; }
+            .contact-wrapper { grid-template-columns: 1fr; gap: 40px; }
+            .hero { padding: 100px 20px 60px; }
+        }
     </style>
 </head>
 <body>
 
-<!-- Navbar -->
-<nav class="navbar navbar-dark">
-    <div class="container">
-        <span class="navbar-brand fw-bold">🚀 Aaftab DevOps Portfolio</span>
-        <span class="badge bg-success">Live ✅</span>
+<nav>
+    <div class="nav-brand">AP.</div>
+    <ul class="nav-links">
+        <li><a href="#skills">Skills</a></li>
+        <li><a href="#project">Project</a></li>
+        <li><a href="#deployment">Deployment</a></li>
+        <li><a href="#contact">Contact</a></li>
+    </ul>
+    <div class="nav-status">
+        <div class="pulse"></div>
+        Live & Deployed
     </div>
 </nav>
 
-<!-- Hero -->
-<div class="hero text-center">
-    <div class="container">
-        <h1 class="display-4 fw-bold">Hello, I'm Aaftab 👋</h1>
-        <p class="lead text-secondary">DevOps Engineer | Docker | Jenkins | Kubernetes</p>
+<div class="hero">
+    <div class="hero-tag">✦ Available for DevOps Roles</div>
+    <h1>
+        Hi, I'm<br>
+        <span class="gradient-text">Aaftab Pathan</span>
+    </h1>
+    <p class="hero-sub">DevOps Engineer crafting robust pipelines with Docker, Jenkins & Kubernetes.</p>
+    <div class="hero-cta">
+        <a href="#project" class="btn-primary">View My Work</a>
+        <a href="#contact" class="btn-outline">Get In Touch</a>
+    </div>
+    <div class="scroll-hint">
+        <span>Scroll</span>
+        <div class="scroll-line"></div>
     </div>
 </div>
 
-<!-- Skills -->
-<div class="container mt-5">
-    <h2 class="mb-4">🛠 Skills</h2>
-    <div>
-        <span class="badge-skill">🐳 Docker</span>
-        <span class="badge-skill">⚙️ Jenkins</span>
-        <span class="badge-skill">☸️ Kubernetes</span>
-        <span class="badge-skill">🐧 Linux</span>
-        <span class="badge-skill">🔒 Trivy</span>
-        <span class="badge-skill">📦 Nginx</span>
-    </div>
-</div>
+<div class="divider"></div>
 
-<!-- Project -->
-<div class="container mt-5">
-    <h2 class="mb-4">🚀 Projects</h2>
-    <div class="card p-4">
-        <h5>Docker + Jenkins + Kubernetes CI/CD Pipeline</h5>
-        <p class="text-secondary mb-2">Full CI/CD pipeline with automated build, test, security scan, and deployment.</p>
-        <div>
-            <span class="badge bg-primary me-1">Docker</span>
-            <span class="badge bg-warning text-dark me-1">Jenkins</span>
-            <span class="badge bg-info text-dark me-1">Kubernetes</span>
-            <span class="badge bg-danger me-1">Trivy</span>
+<section id="skills">
+    <div class="section-label reveal">What I work with</div>
+    <h2 class="section-title reveal">Core Skills</h2>
+    <div class="skills-grid">
+        <div class="skill-card reveal">
+            <div class="skill-icon">🐳</div>
+            <div class="skill-name">Docker</div>
+            <div class="skill-level">Containerization</div>
+        </div>
+        <div class="skill-card reveal">
+            <div class="skill-icon">⚙️</div>
+            <div class="skill-name">Jenkins</div>
+            <div class="skill-level">CI/CD Pipelines</div>
+        </div>
+        <div class="skill-card reveal">
+            <div class="skill-icon">☸️</div>
+            <div class="skill-name">Kubernetes</div>
+            <div class="skill-level">Orchestration</div>
+        </div>
+        <div class="skill-card reveal">
+            <div class="skill-icon">🐧</div>
+            <div class="skill-name">Linux</div>
+            <div class="skill-level">System Admin</div>
+        </div>
+        <div class="skill-card reveal">
+            <div class="skill-icon">🔒</div>
+            <div class="skill-name">Trivy</div>
+            <div class="skill-level">Security Scanning</div>
+        </div>
+        <div class="skill-card reveal">
+            <div class="skill-icon">📦</div>
+            <div class="skill-name">Nginx</div>
+            <div class="skill-level">Reverse Proxy</div>
         </div>
     </div>
-</div>
+</section>
 
-<!-- Deployment Info -->
-<div class="container mt-5">
-    <h2 class="mb-4">⚙️ Deployment Info</h2>
-    <div class="card p-4">
-        <p>🔁 <b>Pipeline:</b> GitHub → Jenkins → Docker → Kubernetes</p>
-        <p>🏷️ <b>Version:</b> v1.0.0</p>
-        <p>✅ <b>Status:</b> Running</p>
-        <p>🔒 <b>Security:</b> Trivy Scan Passed</p>
+<div class="divider"></div>
+
+<section id="project">
+    <div class="section-label reveal">What I built</div>
+    <h2 class="section-title reveal">Featured Project</h2>
+    <div class="project-card reveal">
+        <h3 class="project-title">Docker Portfolio CI/CD Pipeline</h3>
+        <p class="project-desc">
+            A fully automated DevOps pipeline that builds, tests, scans, and deploys a containerized web application.
+            Features security vulnerability scanning with Trivy, ESLint code quality checks, and automated Kubernetes deployment.
+        </p>
+        <div class="pipeline-flow">
+            <span class="pipe-step">GitHub</span>
+            <span class="pipe-arrow">→</span>
+            <span class="pipe-step">Jenkins</span>
+            <span class="pipe-arrow">→</span>
+            <span class="pipe-step">Docker Build</span>
+            <span class="pipe-arrow">→</span>
+            <span class="pipe-step">Trivy Scan</span>
+            <span class="pipe-arrow">→</span>
+            <span class="pipe-step">DockerHub</span>
+            <span class="pipe-arrow">→</span>
+            <span class="pipe-step">Kubernetes</span>
+        </div>
+        <div class="project-tags">
+            <span class="tag tag-blue">Docker</span>
+            <span class="tag tag-purple">Jenkins</span>
+            <span class="tag tag-cyan">Kubernetes</span>
+            <span class="tag tag-pink">Trivy</span>
+            <span class="tag tag-green">Nginx</span>
+        </div>
     </div>
-</div>
+</section>
 
-<!-- Footer -->
-<footer class="text-center p-4 mt-5">
-    <p class="mb-0">Made with ❤️ by Aaftab | DevOps Engineer</p>
+<div class="divider"></div>
+
+<section id="deployment">
+    <div class="section-label reveal">System status</div>
+    <h2 class="section-title reveal">Deployment Info</h2>
+    <div class="info-grid">
+        <div class="info-card reveal">
+            <div class="info-icon">🔁</div>
+            <div class="info-label">Pipeline</div>
+            <div class="info-value">GitHub → K8s</div>
+        </div>
+        <div class="info-card reveal">
+            <div class="info-icon">🏷️</div>
+            <div class="info-label">Version</div>
+            <div class="info-value">v1.0.0</div>
+        </div>
+        <div class="info-card reveal">
+            <div class="info-icon">✅</div>
+            <div class="info-label">Status</div>
+            <div class="info-value" style="color:#4ade80">Running</div>
+        </div>
+        <div class="info-card reveal">
+            <div class="info-icon">🔒</div>
+            <div class="info-label">Security</div>
+            <div class="info-value" style="color:var(--accent1)">0 Vulnerabilities</div>
+        </div>
+    </div>
+</section>
+
+<div class="divider"></div>
+
+<section id="contact">
+    <div class="section-label reveal">Let's connect</div>
+    <h2 class="section-title reveal">Get In Touch</h2>
+    <div class="contact-wrapper">
+        <div class="contact-intro reveal">
+            <h3>Open to new opportunities 🚀</h3>
+            <p>Whether you have a project in mind, want to discuss DevOps, or just want to say hi — my inbox is always open.</p>
+            <div class="social-links">
+                <a href="https://github.com/AaftabPathan" target="_blank" class="social-link">
+                    <span class="social-link-icon">🐙</span>
+                    <span class="social-link-text">github.com/AaftabPathan</span>
+                    <span class="social-link-arrow">→</span>
+                </a>
+                <a href="https://linkedin.com/in/aaftabpathan" target="_blank" class="social-link">
+                    <span class="social-link-icon">💼</span>
+                    <span class="social-link-text">linkedin.com/in/aaftabpathan</span>
+                    <span class="social-link-arrow">→</span>
+                </a>
+                <a href="mailto:aaftabaayubpathan@gmail.com" class="social-link">
+                    <span class="social-link-icon">✉️</span>
+                    <span class="social-link-text">aaftabaayubpathan@gmail.com</span>
+                    <span class="social-link-arrow">→</span>
+                </a>
+            </div>
+        </div>
+
+        <div class="contact-form reveal">
+            <form id="contactForm">
+                <div class="form-group">
+                    <label class="form-label">Your Name</label>
+                    <input type="text" class="form-input" placeholder="John Doe" required>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Email Address</label>
+                    <input type="email" class="form-input" placeholder="john@example.com" required>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Message</label>
+                    <textarea class="form-textarea" placeholder="Hey Aaftab, I'd love to connect..." required></textarea>
+                </div>
+                <button type="submit" class="form-submit">Send Message ✦</button>
+            </form>
+            <div class="form-success" id="formSuccess">
+                ✅ Message sent! I'll get back to you soon.
+            </div>
+        </div>
+    </div>
+</section>
+
+<footer>
+    <p>Designed & Built by <span>Aaftab Pathan</span> &nbsp;·&nbsp; DevOps Engineer &nbsp;·&nbsp; 2025</p>
 </footer>
+
+<script>
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('visible');
+            }
+        });
+    }, { threshold: 0.1 });
+
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+    document.getElementById('contactForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        this.style.display = 'none';
+        document.getElementById('formSuccess').style.display = 'block';
+    });
+
+    document.querySelectorAll('.skill-card').forEach((card, i) => {
+        card.style.animationDelay = `${i * 0.1}s`;
+    });
+</script>
 
 </body>
 </html>
