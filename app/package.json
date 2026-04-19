@@ -1,13 +1,13 @@
 {
   "name": "docker-portfolio-app",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
-  "type": "module",
+  "description": "A simple DevOps portfolio app",
+  "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node app.js",
+    "test": "echo \"No tests yet\" && exit 0"
   },
-  "author": "",
+  "author": "Aaftab Pathan",
   "license": "ISC",
   "dependencies": {
     "express": "^5.2.1"
@@ -15,7 +15,6 @@
   "devDependencies": {
     "@eslint/js": "^10.0.1",
     "eslint": "^10.2.1",
-    "globals": "^17.5.0",
-    "typescript-eslint": "^8.58.2"
+    "globals": "^17.5.0"
   }
 }
