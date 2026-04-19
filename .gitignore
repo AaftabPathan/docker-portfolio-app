@@ -4,3 +4,5 @@ node_modules/
 
 minikube-linux-amd64
 .env
+k8s/secret.yaml
+k8s/secret.yaml
