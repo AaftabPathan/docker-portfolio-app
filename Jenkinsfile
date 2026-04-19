@@ -35,8 +35,10 @@ pipeline {
         }
         stage('Lint') {
             steps {
+                dir('app') {
                 sh 'npm install eslint'
                 sh 'npx eslint .'
+                }   
             }
         }
         stage('Stop Old Container') {
