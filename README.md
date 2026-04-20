@@ -264,19 +264,24 @@ http://localhost:3001
 
 ---
 
+## This project demonstrates a complete DevOps pipeline with live deployment, monitoring, and CI/CD automation.
 
 ## 📸 Screenshots
 
 ### 🖥️ Application UI
 ![App UI](assets/app-ui.png)
+## Running containerized application via Nginx reverse proxy
+
 
 ### 📊 Grafana Dashboard
 ![Grafana](assets/grafana-dashboard.png)
 ![Grafana](assets/grafana-2.png)
+Centralized logging visualization using Loki & Grafana
+
 
 ### 🔄 Jenkins Pipeline
 ![Pipeline](assets/jenkins-pipeline.png)
-
+Successful CI/CD pipeline execution
 
 
 
