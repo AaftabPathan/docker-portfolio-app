@@ -264,6 +264,21 @@ http://localhost:3001
 
 ---
 
+
+## 📸 Screenshots
+
+### 🖥️ Application UI
+![App UI](assets/app-ui.png)
+
+### 📊 Grafana Dashboard
+![Grafana](assets/grafana-dashboard.png)
+
+### 🔄 Jenkins Pipeline
+![Pipeline](assets/jenkins-pipeline.png)
+
+
+
+
 ## 👨‍💻 Author
 
 **Aaftab Pathan**
