@@ -272,6 +272,7 @@ http://localhost:3001
 
 ### 📊 Grafana Dashboard
 ![Grafana](assets/grafana-dashboard.png)
+![Grafana](assets/grafana-2.png)
 
 ### 🔄 Jenkins Pipeline
 ![Pipeline](assets/jenkins-pipeline.png)
