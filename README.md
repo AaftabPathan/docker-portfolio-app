@@ -295,6 +295,6 @@ Successful CI/CD pipeline execution
 
 ---
 
-## ⭐ Support
+## ⭐ Support 
 
 If you like this project, give it a ⭐ on GitHub!
